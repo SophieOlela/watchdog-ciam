@@ -15,7 +15,7 @@
         }
 
         * { box-sizing: border-box; }
-        body, html { 
+        body, html {
             margin: 0; padding: 0; height: 100vh; width: 100vw;
             background: var(--bg); color: var(--cyan);
             font-family: 'Share Tech Mono', monospace; overflow: hidden;
@@ -25,7 +25,7 @@
 
         .scanlines {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
                         linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
             background-size: 100% 3px, 3px 100%; z-index: 9999; pointer-events: none;
         }
@@ -60,30 +60,17 @@
         .node-left .node-label { right: 35px; border-right: 3px solid var(--cyan); }
         .node:hover .node-label { opacity: 1; }
 
-        /* --- MODALES STABLES --- */
-        #modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 1000; display: flex; justify-content: center; align-items: center; }
+        /* --- MODALES --- */
+        #modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; display: flex; justify-content: center; align-items: center; }
         .close-btn { position: absolute; top: 20px; right: 20px; color: var(--red); border: 1px solid var(--red); background: none; padding: 10px 20px; cursor: pointer; font-family: inherit; z-index: 1100; }
-
-        .modal-content {
-            width: 95vw;
-            height: 85vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
+        .modal-content { width: 95vw; height: 85vh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
 
         /* --- TEAM : 12 MEMBRES --- */
         .team-container { display: flex; justify-content: center; align-items: flex-end; width: 100%; height: 100%; gap: 3px; }
         .member { position: relative; flex: 1; height: 80vh; min-width: 40px; transition: all 0.4s ease; filter: grayscale(1) brightness(0.3); display: flex; justify-content: center; align-items: flex-end; }
         .member img { height: 100%; max-width: 100%; object-fit: contain; }
         .member:hover { flex: 4; filter: grayscale(0) brightness(1.1); z-index: 100; }
-        .profiler { 
-            position: absolute; bottom: 120px; left: 50%; transform: translateX(-50%); 
-            width: 260px; background: var(--glass); border: 1px solid var(--cyan); 
-            padding: 15px; opacity: 0; transition: 0.3s; pointer-events: none; 
-            box-shadow: 0 0 30px var(--cyan); font-size: 0.75rem;
-        }
+        .profiler { position: absolute; bottom: 120px; left: 50%; transform: translateX(-50%); width: 260px; background: var(--glass); border: 1px solid var(--cyan); padding: 15px; opacity: 0; transition: 0.3s; pointer-events: none; box-shadow: 0 0 30px var(--cyan); font-size: 0.75rem; }
         .member:hover .profiler { opacity: 1; bottom: 160px; }
         .profiler-title { background: var(--cyan); color: black; font-weight: bold; padding: 2px 5px; margin-bottom: 8px; display: inline-block; font-size: 0.65rem; }
         .profiler-name { font-size: 1.1rem; color: white; display: block; border-bottom: 1px solid var(--cyan); margin-bottom: 8px; padding-bottom: 5px; text-transform: uppercase;}
@@ -91,63 +78,67 @@
         .p-label { color: var(--cyan); font-weight: bold; }
         .p-value { color: white; text-align: right; }
 
-        /* --- ARSENAL --- */
-        .arsenal-grid { display: flex; gap: 20px; justify-content: center; align-items: center; width: 100%; height: 100%; }
-        .card { width: 300px; height: 450px; perspective: 1000px; }
-        .card-inner { position: relative; width: 100%; height: 100%; transition: 0.8s; transform-style: preserve-3d; }
-        .card:hover .card-inner { transform: rotateY(180deg); }
-        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border: 1px solid var(--cyan); display: flex; flex-direction: column; padding: 25px; }
-        .card-front { background: rgba(0,20,30,0.8); justify-content: center; align-items: center; }
-        .card-back { background: var(--cyan); color: black; transform: rotateY(180deg); text-align: left; }
-        .card-back h3 { margin-top: 0; border-bottom: 2px solid black; padding-bottom: 5px; text-transform: uppercase; }
-        .spec-list { list-style: none; padding: 0; margin-top: 15px; font-size: 0.85rem; }
-        .spec-list li { margin-bottom: 8px; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 3px; }
-        .spec-list b { text-transform: uppercase; font-size: 0.75rem; }
+        /* --- ARSENAL : PROTOCOLES --- */
+        #protocol-visualizer { width: 90%; height: 90%; display: flex; flex-direction: column; position: relative; }
+        .arsenal-columns { display: flex; justify-content: space-around; flex: 1; width: 100%; padding: 20px; }
+        .arsenal-encart { background: rgba(0, 10, 15, 0.7); border: 1px solid rgba(0, 236, 255, 0.2); padding: 30px; width: 42%; position: relative; min-height: 480px; }
+        .arsenal-encart h2 { font-size: 2.8rem; margin: 0; color: white; text-shadow: 3px 3px var(--red); letter-spacing: -2px; }
+        .arsenal-encart h4 { font-size: 1.1rem; margin: 0 0 25px 0; color: var(--cyan); text-transform: uppercase; letter-spacing: 4px; }
+        
+        .be-toggle-btn { background: transparent; border: 1px solid var(--cyan); color: var(--cyan); padding: 5px 15px; font-family: inherit; font-size: 0.7rem; cursor: pointer; margin-bottom: 20px; transition: 0.3s; }
+        .be-toggle-btn:hover { background: var(--cyan); color: black; }
 
+        .image-stack { position: relative; width: 100%; height: 260px; margin-top: 20px; cursor: pointer; }
+        .stack-card { position: absolute; width: 480px; height: 290px; background: #111; border: 2px solid var(--cyan); overflow: hidden; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 0 20px rgba(0,0,0,0.8); }
+        .stack-card img { width: 100%; height: 100%; object-fit: cover; }
+        .pos-0 { z-index: 4; transform: translate(0, 0) scale(1); filter: brightness(1); }
+        .pos-1 { z-index: 3; transform: translate(30px, 30px) scale(0.95); filter: brightness(0.8); }
+        .pos-2 { z-index: 2; transform: translate(60px, 60px) scale(0.9); filter: brightness(0.6); }
+        .pos-3 { z-index: 1; transform: translate(90px, 90px) scale(0.85); filter: brightness(0.3); }        
+
+        .tech-list { list-style: none; padding: 0; margin: 0; }
+        .tech-list li { padding: 12px 0; border-bottom: 1px solid rgba(0, 236, 255, 0.1); color: #ccc; font-size: 0.9rem; position: relative; padding-left: 25px; }
+        .tech-list li::before { content: ">"; position: absolute; left: 0; color: var(--cyan); font-weight: bold; }
+
+        .secret-trigger { position: absolute; bottom: 20px; right: 20px; background: transparent; border: 1px solid var(--red); color: var(--red); padding: 10px 25px; font-family: inherit; font-size: 0.9rem; cursor: pointer; transition: 0.3s; z-index: 100; }
+        .secret-trigger:hover { background: var(--red); color: white; box-shadow: 0 0 20px var(--red); }
+
+        #secret-popup-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 5, 10, 0.98); z-index: 2000; display: flex; justify-content: center; align-items: center; }
+        .secret-popup-content { width: 850px; height: 500px; background: #000; border: 1px solid var(--cyan); display: flex; position: relative; box-shadow: 0 0 50px rgba(0, 236, 255, 0.2); }
+        .secret-left { width: 350px; height: 100%; border-right: 1px solid rgba(0, 236, 255, 0.3); }
+        .secret-left img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.5) contrast(1.2); }
+        .secret-right { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+        .secret-right h2 { font-size: 2.2rem; color: var(--cyan); margin: 0 0 20px 0; letter-spacing: 2px; }
+        .secret-right p { line-height: 1.6; color: #aaa; font-size: 1rem; }
+        .secret-close { position: absolute; top: 15px; right: 15px; color: var(--red); border: 1px solid var(--red); background: none; padding: 5px 10px; cursor: pointer; font-family: inherit; }
+
+        .hover-container {position: relative; display: inline-block; cursor: pointer; }
+        .hover-image { display: none; position: absolute; top: 25px; left: 0; width: 200px; border: 1px solid #ccc; background: white; z-index: 10; }
+        .hover-container:hover .hover-image { display: block; }
         /* --- MISSIONS (PC FIXE) --- */
-        .pc-window { 
-            width: 100%; height: 100%; max-width: 1100px;
-            background: #050505; border: 1px solid var(--cyan); 
-            display: flex; flex-direction: column;
-        }
+        .pc-window { width: 100%; height: 100%; max-width: 1100px; background: #050505; border: 1px solid var(--cyan); display: flex; flex-direction: column; }
         .pc-header { background: var(--cyan); padding: 8px 15px; display: flex; justify-content: space-between; color: black; font-weight: bold; font-size: 0.8rem; }
         .pc-container { display: flex; flex: 1; overflow: hidden; }
-        .pc-sidebar { width: 30%; border-right: 1px solid #222; overflow-y: auto; background: rgba(0, 20, 30, 0.4); }
+        .pc-sidebar { width: 35%; border-right: 1px solid #222; overflow-y: auto; background: rgba(0, 20, 30, 0.4); }
         .mission-item { padding: 20px; border-bottom: 1px solid #111; cursor: pointer; transition: 0.2s; font-size: 0.8rem; }
         .mission-item:hover { background: rgba(0, 236, 255, 0.1); }
         .mission-item.active { background: rgba(0, 236, 255, 0.2); border-left: 4px solid var(--cyan); }
-        .pc-content { width: 70%; padding: 40px; overflow-y: auto; scrollbar-gutter: stable; }
+        .pc-content { width: 65%; padding: 40px; overflow-y: auto; scrollbar-gutter: stable; }
         .report-header { border-bottom: 1px dashed var(--cyan); margin-bottom: 25px; padding-bottom: 15px; }
-        .report-title { font-size: 1.8rem; color: white; margin-bottom: 10px; text-transform: uppercase; }
-        .report-meta { font-size: 0.75rem; color: #666; display: flex; gap: 25px; }
-        .report-body { color: #ccc; font-size: 1rem; line-height: 1.8; white-space: pre-line; }
-        
-        /* --- PHONE (Ajusté & Stylisé) --- */
+        .report-title { font-size: 1.6rem; color: white; margin-bottom: 10px; text-transform: uppercase; }
+        .report-body { color: #ccc; font-size: 0.95rem; line-height: 1.8; white-space: pre-line; }
+
+        /* --- PHONE --- */
         .phone { width: 280px; height: 560px; background: #111; border: 10px solid #222; border-radius: 40px; padding: 0; position: relative; box-shadow: 0 0 50px rgba(0,236,255,0.1); overflow: hidden; }
-        .phone::after { content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 40%; height: 20px; background: #222; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; z-index: 30; }
-        
         .phone-screen { height: 100%; width: 100%; background: #000; border-radius: 30px; overflow: hidden; position: relative; display: flex; flex-direction: column; }
         .phone-header { background: #0a0a0a; padding: 35px 15px 15px; border-bottom: 1px solid #222; }
         .phone-header h4 { margin: 0; color: white; font-size: 1.1rem; letter-spacing: 1px; }
-        
-        .sms-list { flex: 1; overflow-y: auto; padding: 0; background: #000; }
-        .sms-thread-preview { 
-            padding: 15px; border-bottom: 1px solid #111; cursor: pointer; transition: 0.3s;
-            display: flex; align-items: center; gap: 12px;
-        }
+        .sms-thread-preview { padding: 15px; border-bottom: 1px solid #111; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 12px; }
         .sms-thread-preview:hover { background: #0a0a0a; }
-        .avatar-fictive { width: 35px; height: 35px; background: #222; border-radius: 50%; border: 1px solid var(--cyan); flex-shrink: 0; }
-        .thread-info { display: flex; flex-direction: column; overflow: hidden; }
-        .sms-sender { color: var(--cyan); font-weight: bold; font-size: 0.75rem; margin-bottom: 2px; }
-        .sms-snippet { color: #666; font-size: 0.65rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
         .conversation-view { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #050505; display: flex; flex-direction: column; z-index: 20; }
-        .conv-header { padding: 35px 15px 15px; background: #111; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #222; }
-        .back-btn { background: none; border: 1px solid var(--cyan); color: var(--cyan); font-family: inherit; font-size: 0.6rem; cursor: pointer; padding: 2px 6px; }
-        .conv-body { flex: 1; padding: 15px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; }
-        .bubble { padding: 8px 12px; border-radius: 15px; font-size: 0.7rem; line-height: 1.4; max-width: 85%; }
-        .bubble.received { background: #222; color: #eee; align-self: flex-start; border-bottom-left-radius: 2px; }
-        .bubble.sent { background: var(--cyan); color: #000; align-self: flex-end; border-bottom-right-radius: 2px; font-weight: bold; }
+        .bubble { padding: 8px 12px; border-radius: 15px; font-size: 0.7rem; line-height: 1.4; max-width: 85%; margin: 5px 15px; white-space: pre-line;}
+        .bubble.received { background: #222; color: #eee; align-self: flex-start; }
+        .bubble.sent { background: var(--cyan); color: #000; align-self: flex-end; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -159,17 +150,14 @@
             <h1 class="glitch" id="typewriter-title"></h1>
             <span id="title-cursor"></span>
         </div>
-        <p id="intro-text">
-            Dans une ville où tout est connecté, celui qui contrôle l'accès contrôle tout. 
-            Nous sommes CUSTOMER IDENTITY, les Gardiens des Portes d'ADEO City. 
-        </p>
+        <p id="intro-text">Dans une ville où tout est connecté, celui qui contrôle l'accès contrôle tout.<br>Nous sommes CUSTOMER IDENTITY, les Gardiens des Portes d'ADEO City.</p>
         <button id="start-btn">[ START THE DEMO ]</button>
     </section>
 
     <section id="hub-page" class="hidden">
         <div id="city-bg"></div>
-        <div class="node node-right" id="node-team" style="top: 50%; left: 28%;"><span class="node-label">LES GARDIENS DE LA PORTE</span></div>
-        <div class="node node-left" id="node-arsenal" style="top: 32%; left: 78%;"><span class="node-label">L'ARSENAL : PROTOCOLES</span></div>
+        <div class="node node-right" id="node-team" style="top: 50%; left: 28%;"><span class="node-label">UNITÉ D'ÉLITE</span></div>
+        <div class="node node-left" id="node-arsenal" style="top: 32%; left: 78%;"><span class="node-label">ARSENAL : PROTOCOLES</span></div>
         <div class="node node-right" id="node-missions" style="top: 67%; left: 70%;"><span class="node-label">RAPPORTS DE MISSIONS</span></div>
         <div class="node node-left" id="node-next" style="top: 80%; left: 21%;"><span class="node-label">OPÉRATIONS FUTURES</span></div>
     </section>
@@ -179,26 +167,74 @@
 
         <div id="content-team" class="modal-content hidden">
             <div class="team-container">
-                <div class="member"><img src="img/olivier.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">OLIVIER_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Digital Product Manager</span></div><div class="profiler-row"><span class="p-label">SKILLS:</span><span class="p-value">XXX</span></div></div></div>
-                <div class="member"><img src="img/tanguy.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">TANGUY_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Business Product Manager</span></div><div class="profiler-row"><span class="p-label">SKILLS:</span><span class="p-value">XXX</span></div></div></div>
-                <div class="member"><img src="img/abdelhafid.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">ABDELHAFID_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Tech Lead</span></div><div class="profiler-row"><span class="p-label">SKILLS:</span><span class="p-value">XXX</span></div></div></div>
-                <div class="member"><img src="img/sophie.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">SOPHIE_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Product Owner</span></div><div class="profiler-row"><span class="p-label">SKILLS:</span><span class="p-value">XXX</span></div></div></div>
-                <div class="member"><img src="img/guillaume.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">GUILLAUME_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Developer</span></div><div class="profiler-row"><span class="p-label">SKILLS:</span><span class="p-value">XXX</span></div></div></div>
-                <div class="member"><img src="img/maxime.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">MAXIME_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Developer</span></div><div class="profiler-row"><span class="p-label">SKILLS:</span><span class="p-value">XXX</span></div></div></div>
-                <div class="member"><img src="img/florent.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">FLORENT_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Developer</span></div><div class="profiler-row"><span class="p-label">SKILLS:</span><span class="p-value">XXX</span></div></div></div>
-                <div class="member"><img src="img/aymeric.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">AYMERIC_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Developer</span></div><div class="profiler-row"><span class="p-label">SKILLS:</span><span class="p-value">XXX</span></div></div></div>
-                <div class="member"><img src="img/abderraouf.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">ABDERRAOUF_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Developer</span></div><div class="profiler-row"><span class="p-label">SKILLS:</span><span class="p-value">XXX</span></div></div></div>
-                <div class="member"><img src="img/alexis.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">ALEXIS_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Lead QA</span></div><div class="profiler-row"><span class="p-label">SKILLS:</span><span class="p-value">XXX</span></div></div></div>
-                <div class="member"><img src="img/faustine.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">FAUSTINE_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">UX/UI Designer</span></div><div class="profiler-row"><span class="p-label">SKILLS:</span><span class="p-value">XXX</span></div></div></div>
-                <div class="member"><img src="img/anton.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">ANTON_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">DevOps</span></div><div class="profiler-row"><span class="p-label">SKILLS:</span><span class="p-value">XXX</span></div></div></div>
+                <div class="member"><img src="img/olivier.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">OLIVIER_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Digital Product Manager</span></div></div></div>
+                <div class="member"><img src="img/tanguy.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">TANGUY_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Business Product Manager</span></div></div></div>
+                <div class="member"><img src="img/abdelhafid.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">ABDELHAFID_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Tech Lead</span></div></div></div>
+                <div class="member"><img src="img/sophie.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">SOPHIE_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Product Owner</span></div></div></div>
+                <div class="member"><img src="img/guillaume.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">GUILLAUME_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Developer</span></div></div></div>
+                <div class="member"><img src="img/maxime.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">MAXIME_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Developer</span></div></div></div>
+                <div class="member"><img src="img/florent.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">FLORENT_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Developer</span></div></div></div>
+                <div class="member"><img src="img/aymeric.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">AYMERIC_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Developer</span></div></div></div>
+                <div class="member"><img src="img/abderraouf.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">ABDERRAOUF_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Developer</span></div></div></div>
+                <div class="member"><img src="img/alexis.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">ALEXIS_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Lead QA</span></div></div></div>
+                <div class="member"><img src="img/faustine.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">FAUSTINE_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">UX/UI Designer</span></div></div></div>
+                <div class="member"><img src="img/anton.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">ANTON_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">DevOps</span></div></div></div>
             </div>
         </div>
 
         <div id="content-arsenal" class="modal-content hidden">
-            <div class="arsenal-grid">
-                <div class="card"><div class="card-inner"><div class="card-front"><h3>CIAM API</h3><img src="img/api-ciam.png" style="width:70%"></div><div class="card-back"><h3>CIAM_CORE</h3><p>Identity Vault</p><ul class="spec-list"><li><b>Vol:</b> 10M citoyens</li><li><b>Impact:</b> Critique</li></ul></div></div></div>
-                <div class="card"><div class="card-inner"><div class="card-front"><h3>KOBI MODULES</h3><img src="img/kobi-modules.png" style="width:70%"></div><div class="card-back"><h3>KOBI_AUTH</h3><p>Seamless UX</p><ul class="spec-list"><li><b>Tech:</b> React/MFA</li><li><b>UX:</b> Seamless</li></ul></div></div></div>
-                <div class="card"><div class="card-inner"><div class="card-front"><h3>IDP ORCHESTRATOR</h3><img src="img/orchestration-api.png" style="width:70%"></div><div class="card-back"><h3>NEURAL_HUB</h3><p>Real-time Logic</p><ul class="spec-list"><li><b>Latency:</b> < 50ms</li><li><b>Flow:</b> Real-time</li></ul></div></div></div>
+            <div id="protocol-visualizer">
+                <div class="arsenal-columns">
+                    <div class="arsenal-encart">
+                        <h2>FRONT-END</h2>
+                        <h4>KOBI MODULES</h4>
+                        <button class="be-toggle-btn" onclick="toggleBackendEncart()">[ ACCESS_BACKEND_CORE ]</button>
+                        <div class="image-stack" onclick="rotateImageStack()">
+                            <div class="stack-card pos-0" id="stack-0"><img src="img/kobi1.png" alt="Front 1"></div>
+                            <div class="stack-card pos-1" id="stack-1"><img src="img/kobi2.png" alt="Front 2"></div>
+                            <div class="stack-card pos-2" id="stack-2"><img src="img/kobi3.png" alt="Front 3"></div>
+                            <div class="stack-card pos-3" id="stack-3"><img src="img/kobi4.png" alt="Front 4"></div>
+                        </div>
+                    </div>
+
+                    <div class="arsenal-encart hidden" id="be-block">
+                        <h2>BACK-END</h2>
+                        <h4>CIAM API  — BASÉ SUR
+                            <span class="hover-container">
+                                REACHFIVE
+                                <img src="img/reachfive.jpg" class="hover-image" alt="ReachFive">
+                            </span>
+                        </h4>
+                        <ul class="tech-list">
+                            <p>GESTION DU CYCLE DE VIE DES COMPTES WEB...</p>
+                            <li>Créer / Pré-créer un compte</li>
+                            <li>Modifier des informations clients</li>
+                            <li>Changer de mot de passe</li>
+                            <li>Supprimer un compte</li>
+                            <li>[...]</li>
+                            <br><br>
+                            <p>... AVEC DES FONCTIONNALITÉS INNOVANTES</p>
+                            <li>Third-party connector (Google, Apple, Facebook)</li>
+                            <li>Multi-Factor Authentication (MFA)</li>
+                            <li>Risk-based Authentication (RBA)</li>
+                            <li>[...]</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <button class="secret-trigger" onclick="toggleSecretPopup(true)">ARME SECRETE</button>
+
+                <div id="secret-popup-overlay" class="hidden">
+                    <div class="secret-popup-content">
+                        <button class="secret-close" onclick="toggleSecretPopup(false)">[X]</button>
+                        <div class="secret-left"><img src="img/orchestration-api.png"></div>
+                        <div class="secret-right">
+                            <h2>[API ORCHESTRATION]</h2>
+                            <p>Chef d'orchestre : Centralise les appels vers les produits qui gèrent de la donnée clients (MDM, CIAM, Data Compliance, CyReg, LYS, etc.).</p>
+                            <div style="margin-top:20px; color:var(--red); font-weight:bold;">> VALEUR AJOUTEE: <br>POINT DE CONTACT UNIQUE <br>SIMPLIFICATION TECHNIQUE</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -207,9 +243,10 @@
                 <div class="pc-header"><span>TERMINAL_V.2.0.4 - SYSTEM_REPORTS</span><span>root@ci:~#</span></div>
                 <div class="pc-container">
                     <div class="pc-sidebar" id="mission-list">
-                        <div class="mission-item active" onclick="showMission('sms')">> OP_SMS_BOOST</div>
-                        <div class="mission-item" onclick="showMission('cyreg')">> OP_CYREG_COMPLIANCE</div>
-                        <div class="mission-item" onclick="showMission('piano')">> OP_PIANO_TRACKING</div>
+                        <div class="mission-item active" onclick="showMission('sms')">> OP_SMS_ALTERNATIVE_MFA_RBA</div>
+                        <div class="mission-item" onclick="showMission('cyreg')">> OP_CYREG_ORCHESTRATOR_API</div>
+                        <div class="mission-item" onclick="showMission('standardization')">> OP_ACCOUNT_CREATION_STANDARDIZATION</div>
+                        <div class="mission-item" onclick="showMission('lmro')">> OP_LMRO_CCDP_WEBSITE_1.2.</div>
                     </div>
                     <div class="pc-content" id="mission-display"></div>
                 </div>
@@ -222,35 +259,19 @@
                     <div id="phone-home">
                         <div class="phone-header"><h4>Messages</h4></div>
                         <div class="sms-list">
-                            <div class="sms-thread-preview" onclick="openSms('obj1')">
-                                <div class="avatar-fictive"></div>
-                                <div class="thread-info">
-                                    <span class="sms-sender">HANDLER_MAIN</span>
-                                    <span class="sms-snippet">OBJECTIF_01: Migration Core Auth 2.0...</span>
-                                </div>
-                            </div>
-                            <div class="sms-thread-preview" onclick="openSms('obj2')">
-                                <div class="avatar-fictive"></div>
-                                <div class="thread-info">
-                                    <span class="sms-sender">OPS_LEAD</span>
-                                    <span class="sms-snippet">OBJECTIF_02: Latence Orchestrateur...</span>
-                                </div>
-                            </div>
-                            <div class="sms-thread-preview" onclick="openSms('obj3')">
-                                <div class="avatar-fictive"></div>
-                                <div class="thread-info">
-                                    <span class="sms-sender">SYSTEM_ARCH</span>
-                                    <span class="sms-snippet">OBJECTIF_03: Extension Portail CIAM...</span>
-                                </div>
-                            </div>
+                            <div class="sms-thread-preview" onclick="openSms('obj1')"><div class="thread-info"><span class="sms-sender">OBJ_01</span><br><span class="sms-snippet">OPS_MFA_RBA</span></div></div>
+                            <div class="sms-thread-preview" onclick="openSms('obj2')"><div class="thread-info"><span class="sms-sender">OBJ_02</span><br><span class="sms-snippet">OPS_SUBSET_1.2</span></div></div>
+                            <div class="sms-thread-preview" onclick="openSms('obj3')"><div class="thread-info"><span class="sms-sender">OBJ_03</span><br><span class="sms-snippet">OPS_INVOICEO</span></div></div>
+                            <div class="sms-thread-preview" onclick="openSms('obj4')"><div class="thread-info"><span class="sms-sender">OBJ_04</span><br><span class="sms-snippet">OPS_CNIL</span></div></div>
+                            <div class="sms-thread-preview" onclick="openSms('obj5')"><div class="thread-info"><span class="sms-sender">OBJ_05</span><br><span class="sms-snippet">PREP_AUTH_IMPROVEMENTS</span></div></div>
                         </div>
                     </div>
                     <div id="phone-conv" class="conversation-view hidden">
-                        <div class="conv-header">
-                            <button class="back-btn" onclick="closeSms()"> < BACK</button>
-                            <span id="conv-name" style="font-size: 0.8rem; color:var(--cyan)"></span>
+                        <div style="padding:40px 15px 15px; background:#111; display:flex; gap:10px;">
+                            <button onclick="closeSms()" style="background:none; border:1px solid var(--cyan); color:var(--cyan); cursor:pointer;"> < </button>
+                            <span id="conv-name" style="font-size:0.8rem;"></span>
                         </div>
-                        <div class="conv-body" id="conv-messages"></div>
+                        <div id="conv-messages" style="padding-top:15px; overflow-y: auto;"></div>
                     </div>
                 </div>
             </div>
@@ -258,74 +279,31 @@
     </div>
 
     <script>
-        // --- DATA MISSIONS PC ---
-        const missionData = {
-            'sms': { title: 'OP_SMS_BOOST', date: '2024.Q1', meta: 'AGENT_01 | LVL_4', body: "Déploiement réussi de la solution alternative SMS.\n\n- Conversion: +25%\n- Coûts: -15%\n- Résilience accrue." },
-            'cyreg': { title: 'OP_CYREG_COMPLIANCE', date: '2024.Q2', meta: 'AGENT_05 | LVL_5', body: "Mise en conformité totale Loi Facturation.\n\n- Audit sécurité validé.\n- Métadonnées chiffrées.\n- Impact groupe ADEO garanti." },
-            'piano': { title: 'OP_PIANO_TRACKING', date: '2024.Q2', meta: 'AGENT_06 | LVL_3', body: "Intégration Piano Analytics.\n\n- Tracking temps réel.\n- Identification friction UX.\n- Dashboard opérationnel." }
-        };
-
-        // --- DATA SMS PHONE ---
-        const smsData = {
-            'obj1': { sender: 'HANDLER_MAIN', msg: "OBJECTIF_01: Migration vers Core Auth 2.0 (Q3).\n\nNécessite une bascule progressive des 10M de comptes. Risque d'indisponibilité à minimiser.", reply: "Protocole reçu. Préparation de l'ombre en cours." },
-            'obj2': { sender: 'OPS_LEAD', msg: "OBJECTIF_02: Latence Orchestrateur.\n\nCible: < 50ms sur tous les nœuds européens. Optimisation des requêtes DB nécessaire.", reply: "Algorithmes optimisés. Prêt pour test de charge." },
-            'obj3': { sender: 'SYSTEM_ARCH', msg: "OBJECTIF_03: Extension portail CIAM filiales.\n\nDéploiement du socle commun aux nouvelles entités. Seamless UX requis.", reply: "Design system synchronisé. Prêt pour infiltration." }
-        };
-
-        function showMission(id) {
-            const data = missionData[id];
-            const container = document.getElementById('mission-display');
-            document.querySelectorAll('.mission-item').forEach(el => el.classList.remove('active'));
-            if(event) event.currentTarget.classList.add('active');
-            container.innerHTML = `
-                <div class="report-header">
-                    <div class="report-title">${data.title}</div>
-                    <div class="report-meta"><span>DATE: ${data.date}</span><span>${data.meta}</span></div>
-                </div>
-                <div class="report-body">${data.body}</div>
-            `;
-        }
-
-        function openSms(id) {
-            const data = smsData[id];
-            document.getElementById('conv-name').innerText = data.sender;
-            document.getElementById('conv-messages').innerHTML = `
-                <div class="bubble received">${data.msg}</div>
-                <div class="bubble sent">${data.reply}</div>
-            `;
-            document.getElementById('phone-conv').classList.remove('hidden');
-        }
-
-        function closeSms() {
-            document.getElementById('phone-conv').classList.add('hidden');
-        }
-
-        // --- CORE LOGIC ---
-        const titleElement = document.getElementById('typewriter-title');
+        // --- LOGIQUE TYPEWRITER ---
         const titleText = "CUSTOMER IDENTITY";
         let charIndex = 0;
-
-        function typeTitle() {
+        function type() {
             if (charIndex < titleText.length) {
-                titleElement.textContent += titleText.charAt(charIndex++);
-                setTimeout(typeTitle, 100);
+                document.getElementById('typewriter-title').textContent += titleText.charAt(charIndex++);
+                setTimeout(type, 100);
             } else {
                 document.getElementById('title-cursor').style.display = 'none';
-                titleElement.classList.add('is-typed');
+                document.getElementById('typewriter-title').classList.add('is-typed');
                 document.getElementById('start-btn').classList.add('show');
             }
         }
 
+        // --- NAVIGATION MODALES ---
         document.getElementById('start-btn').onclick = () => {
             document.getElementById('intro-page').classList.add('hidden');
             document.getElementById('hub-page').classList.remove('hidden');
         };
 
-        const nodeMap = {'node-team':'content-team','node-arsenal':'content-arsenal','node-missions':'content-missions','node-next':'content-next'};
-        Object.keys(nodeMap).forEach(id => {
+        const nodes = {'node-team':'content-team','node-arsenal':'content-arsenal','node-missions':'content-missions','node-next':'content-next'};
+        Object.keys(nodes).forEach(id => {
             document.getElementById(id).onclick = () => {
                 document.getElementById('modal-overlay').classList.remove('hidden');
-                document.getElementById(nodeMap[id]).classList.remove('hidden');
+                document.getElementById(nodes[id]).classList.remove('hidden');
                 if(id === 'node-missions') showMission('sms');
             };
         });
@@ -333,10 +311,59 @@
         function closeModal() {
             document.getElementById('modal-overlay').classList.add('hidden');
             document.querySelectorAll('.modal-content').forEach(c => c.classList.add('hidden'));
-            closeSms();
+            toggleSecretPopup(false);
         }
 
-        window.onload = () => setTimeout(typeTitle, 800);
+        // --- ARSENAL LOGIC ---
+        let currentStackPos = [0, 1, 2, 3];
+        function rotateImageStack() {
+            currentStackPos.push(currentStackPos.shift()); 
+            for(let i=0; i<4; i++) {
+                document.getElementById(`stack-${i}`).className = `stack-card pos-${currentStackPos[i]}`;
+            }
+        }
+        function toggleBackendEncart() { document.getElementById('be-block').classList.toggle('hidden'); }
+        function toggleSecretPopup(show) {
+            const popup = document.getElementById('secret-popup-overlay');
+            if(show) popup.classList.remove('hidden');
+            else popup.classList.add('hidden');
+        }
+
+        // --- MISSIONS DATA ---
+        const missionData = {
+            'sms': { title: 'OP_SMS_ALTERNATIVE_MFA_RBA', body: "Problématique: ~10% des clients ne recevaient pas le code de sécurité par email.\nSolution: Déploiement du SMS comme alternative MFA.\nStatut: SUCCÈS\nBU: LMFR, LMIT, LMPT, LMES, TMFR", image: './img/sms.png' },
+            'cyreg': { title: 'OP_CYREG_ORCHESTRATOR_API', body: "Contexte: Loi Facturation.\nBU: Française (LMFR, TMFR, WELDOM).\nAction: Adaptation de l'Orchestrateur pour CyReg.\nStatut: SUCCÈS.", image: './img/cyreg.jpg' },
+            'standardization': { title: 'OP_ACCOUNT_CREATION_STANDARDIZATION', body: "Action: Amélioration UX/UI KOBI.\nObjectif: Standardisation du marché.\nStatut: SUCCÈS.", image: './img/standardization.png' },
+            'lmro': { title: 'OP_LMRO_CCDP_WEBSITE_1.2.', body: "Action: Onboarding LMRO sur Subset 1.2.\nStatut: SUCCÈS.", image: './img/lmro-onboarding.png' },
+        };
+
+        function showMission(id) {
+            const data = missionData[id];
+            document.querySelectorAll('.mission-item').forEach(el => el.classList.remove('active'));
+            if(event) event.currentTarget.classList.add('active');
+            document.getElementById('mission-display').innerHTML = `
+                <div class="report-header"><div class="report-title">${data.title}</div></div>
+                <div class="report-body">${data.body}</div>
+                <img src="${data.image}" style="width:40%; margin-top:20px; border:1px solid var(--cyan);">
+            `;
+        }
+
+        // --- SMS DATA ---
+        const smsData = {
+            'obj1': { n: 'CHIEF_LEAD', m: 'Rollout MFA/RBA \n Cibles: OMES / OMPT / LMRO.' },
+            'obj2': { n: 'CHIEF_LEAD', m: 'Onboarding Subset 1.2. \n Cibles: BMPL / TMIT.' },
+            'obj3': { n: 'CHIEF_LEAD', m: 'INVOICEO :\n Adaptation du front-end de création de compte \n Cibles: LMFR / TMFR.' },
+            'obj4': { n: 'CHIEF_LEAD', m: 'CNIL :\n- Téléphone facultatif\n- Consentements démarchage\n Cible: LMFR' },
+            'obj5': { n: 'CHIEF_LEAD', m: "Framing :\n Simplification authentification \n Cibles: HMBU" }
+        };
+        function openSms(id) {
+            document.getElementById('conv-name').innerText = smsData[id].n;
+            document.getElementById('conv-messages').innerHTML = `<div class="bubble received">${smsData[id].m}</div><div class="bubble sent">Bien reçu.</div>`;
+            document.getElementById('phone-conv').classList.remove('hidden');
+        }
+        function closeSms() { document.getElementById('phone-conv').classList.add('hidden'); }
+
+        window.onload = () => setTimeout(type, 800);
     </script>
 </body>
 </html>
