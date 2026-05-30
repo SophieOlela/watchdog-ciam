@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CUSTOMER_IDENTITY_OS</title>
+    <title>GENERIC_IDENTITY_OS</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
@@ -22,6 +22,20 @@
         }
 
         .hidden { display: none !important; }
+
+        /* Style pour les emplacements d'images supprimées */
+        .img-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed var(--cyan);
+            background: rgba(0, 236, 255, 0.05);
+            color: var(--cyan);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
 
         .scanlines {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -52,7 +66,9 @@
 
         /* --- HUB (MAP) --- */
         #hub-page { height: 100vh; width: 100vw; position: relative; }
+        /* IMAGE DE BACKGROUND PRINCIPAL GARDEE */
         #city-bg { position: absolute; width: 100%; height: 100%; background: #111 url('img/adeo-city-bg.png') no-repeat center; background-size: cover; filter: brightness(0.4); z-index: 1; }
+        
         .node { position: absolute; width: 25px; height: 25px; background: #fff; border-radius: 50%; cursor: pointer; box-shadow: 0 0 20px #fff; z-index: 10; transition: 0.3s; }
         .node:hover { transform: scale(1.4); background: var(--cyan); box-shadow: 0 0 30px var(--cyan); }
         .node-label { position: absolute; top: 50%; transform: translateY(-50%); white-space: nowrap; font-size: 0.8rem; background: rgba(0,0,0,0.9); padding: 5px 12px; border: 1px solid var(--cyan); opacity: 0; transition: 0.3s; pointer-events: none; color: var(--cyan); }
@@ -65,7 +81,7 @@
         .close-btn { position: absolute; top: 20px; right: 20px; color: var(--red); border: 1px solid var(--red); background: none; padding: 10px 20px; cursor: pointer; font-family: inherit; z-index: 1100; }
         .modal-content { width: 95vw; height: 85vh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
 
-        /* --- TEAM : 12 MEMBRES --- */
+        /* --- TEAM : AVATARS GARDÉS --- */
         .team-container { display: flex; justify-content: center; align-items: flex-end; width: 100%; height: 100%; gap: 3px; }
         .member { position: relative; flex: 1; height: 80vh; min-width: 40px; transition: all 0.4s ease; filter: grayscale(1) brightness(0.3); display: flex; justify-content: center; align-items: flex-end; }
         .member img { height: 100%; max-width: 100%; object-fit: contain; }
@@ -90,7 +106,6 @@
 
         .image-stack { position: relative; width: 100%; height: 260px; margin-top: 20px; cursor: pointer; }
         .stack-card { position: absolute; width: 480px; height: 290px; background: #111; border: 2px solid var(--cyan); overflow: hidden; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 0 20px rgba(0,0,0,0.8); }
-        .stack-card img { width: 100%; height: 100%; object-fit: cover; }
         .pos-0 { z-index: 4; transform: translate(0, 0) scale(1); filter: brightness(1); }
         .pos-1 { z-index: 3; transform: translate(30px, 30px) scale(0.95); filter: brightness(0.8); }
         .pos-2 { z-index: 2; transform: translate(60px, 60px) scale(0.9); filter: brightness(0.6); }
@@ -106,15 +121,12 @@
         #secret-popup-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 5, 10, 0.98); z-index: 2000; display: flex; justify-content: center; align-items: center; }
         .secret-popup-content { width: 850px; height: 500px; background: #000; border: 1px solid var(--cyan); display: flex; position: relative; box-shadow: 0 0 50px rgba(0, 236, 255, 0.2); }
         .secret-left { width: 350px; height: 100%; border-right: 1px solid rgba(0, 236, 255, 0.3); }
-        .secret-left img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.5) contrast(1.2); }
+        
         .secret-right { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
         .secret-right h2 { font-size: 2.2rem; color: var(--cyan); margin: 0 0 20px 0; letter-spacing: 2px; }
         .secret-right p { line-height: 1.6; color: #aaa; font-size: 1rem; }
         .secret-close { position: absolute; top: 15px; right: 15px; color: var(--red); border: 1px solid var(--red); background: none; padding: 5px 10px; cursor: pointer; font-family: inherit; }
 
-        .hover-container {position: relative; display: inline-block; cursor: pointer; }
-        .hover-image { display: none; position: absolute; top: 25px; left: 0; width: 200px; border: 1px solid #ccc; background: white; z-index: 10; }
-        .hover-container:hover .hover-image { display: block; }
         /* --- MISSIONS (PC FIXE) --- */
         .pc-window { width: 100%; height: 100%; max-width: 1100px; background: #050505; border: 1px solid var(--cyan); display: flex; flex-direction: column; }
         .pc-header { background: var(--cyan); padding: 8px 15px; display: flex; justify-content: space-between; color: black; font-weight: bold; font-size: 0.8rem; }
@@ -134,8 +146,6 @@
         .phone-header { background: #0a0a0a; padding: 35px 15px 15px; border-bottom: 1px solid #222; }
         .phone-header h4 { margin: 0; color: white; font-size: 1.1rem; letter-spacing: 1px; }
         .sms-thread-preview { padding: 15px; border-bottom: 1px solid #111; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 12px; }
-        .sms-thread-preview:hover { background: #0a0a0a; }
-        .conversation-view { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #050505; display: flex; flex-direction: column; z-index: 20; }
         .bubble { padding: 8px 12px; border-radius: 15px; font-size: 0.7rem; line-height: 1.4; max-width: 85%; margin: 5px 15px; white-space: pre-line;}
         .bubble.received { background: #222; color: #eee; align-self: flex-start; }
         .bubble.sent { background: var(--cyan); color: #000; align-self: flex-end; font-weight: bold; }
@@ -150,16 +160,16 @@
             <h1 class="glitch" id="typewriter-title"></h1>
             <span id="title-cursor"></span>
         </div>
-        <p id="intro-text">Dans une ville où tout est connecté, celui qui contrôle l'accès contrôle tout.<br>Nous sommes CUSTOMER IDENTITY, les Gardiens des Portes d'ADEO City.</p>
-        <button id="start-btn">[ START THE DEMO ]</button>
+        <p id="intro-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <button id="start-btn">[ INITIALIZE_SYSTEM ]</button>
     </section>
 
     <section id="hub-page" class="hidden">
         <div id="city-bg"></div>
-        <div class="node node-right" id="node-team" style="top: 50%; left: 28%;"><span class="node-label">UNITÉ D'ÉLITE</span></div>
-        <div class="node node-left" id="node-arsenal" style="top: 32%; left: 78%;"><span class="node-label">ARSENAL : PROTOCOLES</span></div>
-        <div class="node node-right" id="node-missions" style="top: 67%; left: 70%;"><span class="node-label">RAPPORTS DE MISSIONS</span></div>
-        <div class="node node-left" id="node-next" style="top: 80%; left: 21%;"><span class="node-label">OPÉRATIONS FUTURES</span></div>
+        <div class="node node-right" id="node-team" style="top: 50%; left: 28%;"><span class="node-label">SECTION_01: TEAM</span></div>
+        <div class="node node-left" id="node-arsenal" style="top: 32%; left: 78%;"><span class="node-label">SECTION_02: STACK</span></div>
+        <div class="node node-right" id="node-missions" style="top: 67%; left: 70%;"><span class="node-label">SECTION_03: REPORTS</span></div>
+        <div class="node node-left" id="node-next" style="top: 80%; left: 21%;"><span class="node-label">SECTION_04: FUTURE</span></div>
     </section>
 
     <div id="modal-overlay" class="hidden">
@@ -167,18 +177,18 @@
 
         <div id="content-team" class="modal-content hidden">
             <div class="team-container">
-                <div class="member"><img src="img/olivier.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">OLIVIER_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Digital Product Manager</span></div></div></div>
-                <div class="member"><img src="img/tanguy.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">TANGUY_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Business Product Manager</span></div></div></div>
-                <div class="member"><img src="img/abdelhafid.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">ABDELHAFID_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Tech Lead</span></div></div></div>
-                <div class="member"><img src="img/sophie.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">SOPHIE_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Product Owner</span></div></div></div>
-                <div class="member"><img src="img/guillaume.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">GUILLAUME_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Developer</span></div></div></div>
-                <div class="member"><img src="img/maxime.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">MAXIME_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Developer</span></div></div></div>
-                <div class="member"><img src="img/florent.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">FLORENT_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Developer</span></div></div></div>
-                <div class="member"><img src="img/aymeric.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">AYMERIC_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Developer</span></div></div></div>
-                <div class="member"><img src="img/abderraouf.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">ABDERRAOUF_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Developer</span></div></div></div>
-                <div class="member"><img src="img/alexis.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">ALEXIS_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">Lead QA</span></div></div></div>
-                <div class="member"><img src="img/faustine.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">FAUSTINE_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">UX/UI Designer</span></div></div></div>
-                <div class="member"><img src="img/anton.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">ANTON_</span><div class="profiler-row"><span class="p-label">JOB:</span><span class="p-value">DevOps</span></div></div></div>
+                <div class="member"><img src="img/olivier.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">MEMBER_01</span><div class="profiler-row"><span class="p-label">ROLE:</span><span class="p-value">Generic Job Title</span></div></div></div>
+                <div class="member"><img src="img/tanguy.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">MEMBER_02</span><div class="profiler-row"><span class="p-label">ROLE:</span><span class="p-value">Generic Job Title</span></div></div></div>
+                <div class="member"><img src="img/abdelhafid.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">MEMBER_03</span><div class="profiler-row"><span class="p-label">ROLE:</span><span class="p-value">Generic Job Title</span></div></div></div>
+                <div class="member"><img src="img/sophie.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">MEMBER_04</span><div class="profiler-row"><span class="p-label">ROLE:</span><span class="p-value">Generic Job Title</span></div></div></div>
+                <div class="member"><img src="img/guillaume.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">MEMBER_05</span><div class="profiler-row"><span class="p-label">ROLE:</span><span class="p-value">Generic Job Title</span></div></div></div>
+                <div class="member"><img src="img/maxime.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">MEMBER_06</span><div class="profiler-row"><span class="p-label">ROLE:</span><span class="p-value">Generic Job Title</span></div></div></div>
+                <div class="member"><img src="img/florent.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">MEMBER_07</span><div class="profiler-row"><span class="p-label">ROLE:</span><span class="p-value">Generic Job Title</span></div></div></div>
+                <div class="member"><img src="img/aymeric.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">MEMBER_08</span><div class="profiler-row"><span class="p-label">ROLE:</span><span class="p-value">Generic Job Title</span></div></div></div>
+                <div class="member"><img src="img/abderraouf.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">MEMBER_09</span><div class="profiler-row"><span class="p-label">ROLE:</span><span class="p-value">Generic Job Title</span></div></div></div>
+                <div class="member"><img src="img/alexis.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">MEMBER_10</span><div class="profiler-row"><span class="p-label">ROLE:</span><span class="p-value">Generic Job Title</span></div></div></div>
+                <div class="member"><img src="img/faustine.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">MEMBER_11</span><div class="profiler-row"><span class="p-label">ROLE:</span><span class="p-value">Generic Job Title</span></div></div></div>
+                <div class="member"><img src="img/anton.png"><div class="profiler"><span class="profiler-title">SCAN...</span><span class="profiler-name">MEMBER_12</span><div class="profiler-row"><span class="p-label">ROLE:</span><span class="p-value">Generic Job Title</span></div></div></div>
             </div>
         </div>
 
@@ -187,51 +197,45 @@
                 <div class="arsenal-columns">
                     <div class="arsenal-encart">
                         <h2>FRONT-END</h2>
-                        <h4>KOBI MODULES</h4>
+                        <h4>UI_MODULE_ALPHA</h4>
                         <button class="be-toggle-btn" onclick="toggleBackendEncart()">[ ACCESS_BACKEND_CORE ]</button>
                         <div class="image-stack" onclick="rotateImageStack()">
-                            <div class="stack-card pos-0" id="stack-0"><img src="img/kobi1.png" alt="Front 1"></div>
-                            <div class="stack-card pos-1" id="stack-1"><img src="img/kobi2.png" alt="Front 2"></div>
-                            <div class="stack-card pos-2" id="stack-2"><img src="img/kobi3.png" alt="Front 3"></div>
-                            <div class="stack-card pos-3" id="stack-3"><img src="img/kobi4.png" alt="Front 4"></div>
+                            <div class="stack-card pos-0" id="stack-0"><div class="img-placeholder">UI_DATA_01</div></div>
+                            <div class="stack-card pos-1" id="stack-1"><div class="img-placeholder">UI_DATA_02</div></div>
+                            <div class="stack-card pos-2" id="stack-2"><div class="img-placeholder">UI_DATA_03</div></div>
+                            <div class="stack-card pos-3" id="stack-3"><div class="img-placeholder">UI_DATA_04</div></div>
                         </div>
                     </div>
 
                     <div class="arsenal-encart hidden" id="be-block">
                         <h2>BACK-END</h2>
-                        <h4>CIAM API  — BASÉ SUR
-                            <span class="hover-container">
-                                REACHFIVE
-                                <img src="img/reachfive.jpg" class="hover-image" alt="ReachFive">
-                            </span>
-                        </h4>
+                        <h4>CORE_API_BETA</h4>
                         <ul class="tech-list">
-                            <p>GESTION DU CYCLE DE VIE DES COMPTES WEB...</p>
-                            <li>Créer / Pré-créer un compte</li>
-                            <li>Modifier des informations clients</li>
-                            <li>Changer de mot de passe</li>
-                            <li>Supprimer un compte</li>
+                            <p>LOREM IPSUM DOLOR SIT AMET...</p>
+                            <li>Feature Item Alpha</li>
+                            <li>Feature Item Beta</li>
+                            <li>Feature Item Gamma</li>
+                            <li>Feature Item Delta</li>
                             <li>[...]</li>
                             <br><br>
-                            <p>... AVEC DES FONCTIONNALITÉS INNOVANTES</p>
-                            <li>Third-party connector (Google, Apple, Facebook)</li>
-                            <li>Multi-Factor Authentication (MFA)</li>
-                            <li>Risk-based Authentication (RBA)</li>
-                            <li>[...]</li>
+                            <p>... CONSECTETUR ADIPISCING ELIT</p>
+                            <li>Advanced Module 01</li>
+                            <li>Advanced Module 02</li>
+                            <li>Advanced Module 03</li>
                         </ul>
                     </div>
                 </div>
 
-                <button class="secret-trigger" onclick="toggleSecretPopup(true)">ARME SECRETE</button>
+                <button class="secret-trigger" onclick="toggleSecretPopup(true)">SECRET_PROTOCOL</button>
 
                 <div id="secret-popup-overlay" class="hidden">
                     <div class="secret-popup-content">
                         <button class="secret-close" onclick="toggleSecretPopup(false)">[X]</button>
-                        <div class="secret-left"><img src="img/orchestration-api.png"></div>
+                        <div class="secret-left"><div class="img-placeholder">SECRET_SCHEMATIC_V1</div></div>
                         <div class="secret-right">
-                            <h2>[API ORCHESTRATION]</h2>
-                            <p>Chef d'orchestre : Centralise les appels vers les produits qui gèrent de la donnée clients (MDM, CIAM, Data Compliance, CyReg, LYS, etc.).</p>
-                            <div style="margin-top:20px; color:var(--red); font-weight:bold;">> VALEUR AJOUTEE: <br>POINT DE CONTACT UNIQUE <br>SIMPLIFICATION TECHNIQUE</div>
+                            <h2>[ORCHESTRATOR_X]</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                            <div style="margin-top:20px; color:var(--red); font-weight:bold;">> ADDED VALUE: <br>SINGLE_ACCESS_POINT <br>TECH_SIMPLIFICATION</div>
                         </div>
                     </div>
                 </div>
@@ -240,13 +244,13 @@
 
         <div id="content-missions" class="modal-content hidden">
             <div class="pc-window">
-                <div class="pc-header"><span>TERMINAL_V.2.0.4 - SYSTEM_REPORTS</span><span>root@ci:~#</span></div>
+                <div class="pc-header"><span>TERMINAL_V.2.0.4 - SYSTEM_REPORTS</span><span>root@sys:~#</span></div>
                 <div class="pc-container">
                     <div class="pc-sidebar" id="mission-list">
-                        <div class="mission-item active" onclick="showMission('sms')">> OP_SMS_ALTERNATIVE_MFA_RBA</div>
-                        <div class="mission-item" onclick="showMission('cyreg')">> OP_CYREG_ORCHESTRATOR_API</div>
-                        <div class="mission-item" onclick="showMission('standardization')">> OP_ACCOUNT_CREATION_STANDARDIZATION</div>
-                        <div class="mission-item" onclick="showMission('lmro')">> OP_LMRO_CCDP_WEBSITE_1.2.</div>
+                        <div class="mission-item active" onclick="showMission('m1')">> REPORT_LOG_ALPHA</div>
+                        <div class="mission-item" onclick="showMission('m2')">> REPORT_LOG_BETA</div>
+                        <div class="mission-item" onclick="showMission('m3')">> REPORT_LOG_GAMMA</div>
+                        <div class="mission-item" onclick="showMission('m4')">> REPORT_LOG_DELTA</div>
                     </div>
                     <div class="pc-content" id="mission-display"></div>
                 </div>
@@ -259,11 +263,11 @@
                     <div id="phone-home">
                         <div class="phone-header"><h4>Messages</h4></div>
                         <div class="sms-list">
-                            <div class="sms-thread-preview" onclick="openSms('obj1')"><div class="thread-info"><span class="sms-sender">OBJ_01</span><br><span class="sms-snippet">OPS_MFA_RBA</span></div></div>
-                            <div class="sms-thread-preview" onclick="openSms('obj2')"><div class="thread-info"><span class="sms-sender">OBJ_02</span><br><span class="sms-snippet">OPS_SUBSET_1.2</span></div></div>
-                            <div class="sms-thread-preview" onclick="openSms('obj3')"><div class="thread-info"><span class="sms-sender">OBJ_03</span><br><span class="sms-snippet">OPS_INVOICEO</span></div></div>
-                            <div class="sms-thread-preview" onclick="openSms('obj4')"><div class="thread-info"><span class="sms-sender">OBJ_04</span><br><span class="sms-snippet">OPS_CNIL</span></div></div>
-                            <div class="sms-thread-preview" onclick="openSms('obj5')"><div class="thread-info"><span class="sms-sender">OBJ_05</span><br><span class="sms-snippet">PREP_AUTH_IMPROVEMENTS</span></div></div>
+                            <div class="sms-thread-preview" onclick="openSms('obj1')"><div class="thread-info"><span class="sms-sender">ROOT_01</span><br><span class="sms-snippet">TASK_REF_001</span></div></div>
+                            <div class="sms-thread-preview" onclick="openSms('obj2')"><div class="thread-info"><span class="sms-sender">ROOT_02</span><br><span class="sms-snippet">TASK_REF_002</span></div></div>
+                            <div class="sms-thread-preview" onclick="openSms('obj3')"><div class="thread-info"><span class="sms-sender">ROOT_03</span><br><span class="sms-snippet">TASK_REF_003</span></div></div>
+                            <div class="sms-thread-preview" onclick="openSms('obj4')"><div class="thread-info"><span class="sms-sender">ROOT_04</span><br><span class="sms-snippet">TASK_REF_004</span></div></div>
+                            <div class="sms-thread-preview" onclick="openSms('obj5')"><div class="thread-info"><span class="sms-sender">ROOT_05</span><br><span class="sms-snippet">TASK_REF_005</span></div></div>
                         </div>
                     </div>
                     <div id="phone-conv" class="conversation-view hidden">
@@ -279,8 +283,8 @@
     </div>
 
     <script>
-        // --- LOGIQUE TYPEWRITER ---
-        const titleText = "CUSTOMER IDENTITY";
+        // --- TYPEWRITER ---
+        const titleText = "GENERIC OS";
         let charIndex = 0;
         function type() {
             if (charIndex < titleText.length) {
@@ -293,7 +297,7 @@
             }
         }
 
-        // --- NAVIGATION MODALES ---
+        // --- NAVIGATION ---
         document.getElementById('start-btn').onclick = () => {
             document.getElementById('intro-page').classList.add('hidden');
             document.getElementById('hub-page').classList.remove('hidden');
@@ -304,7 +308,7 @@
             document.getElementById(id).onclick = () => {
                 document.getElementById('modal-overlay').classList.remove('hidden');
                 document.getElementById(nodes[id]).classList.remove('hidden');
-                if(id === 'node-missions') showMission('sms');
+                if(id === 'node-missions') showMission('m1');
             };
         });
 
@@ -329,39 +333,55 @@
             else popup.classList.add('hidden');
         }
 
-        // --- MISSIONS DATA ---
+        // --- MISSIONS JS UPDATED (NO IMG TAG) ---
         const missionData = {
-            'sms': { title: 'OP_SMS_ALTERNATIVE_MFA_RBA', body: "Problématique: ~10% des clients ne recevaient pas le code de sécurité par email.\nSolution: Déploiement du SMS comme alternative MFA.\nStatut: SUCCÈS\nBU: LMFR, LMIT, LMPT, LMES, TMFR", image: './img/sms.png' },
-            'cyreg': { title: 'OP_CYREG_ORCHESTRATOR_API', body: "Contexte: Loi Facturation.\nBU: Française (LMFR, TMFR, WELDOM).\nAction: Adaptation de l'Orchestrateur pour CyReg.\nStatut: SUCCÈS.", image: './img/cyreg.jpg' },
-            'standardization': { title: 'OP_ACCOUNT_CREATION_STANDARDIZATION', body: "Action: Amélioration UX/UI KOBI.\nObjectif: Standardisation du marché.\nStatut: SUCCÈS.", image: './img/standardization.png' },
-            'lmro': { title: 'OP_LMRO_CCDP_WEBSITE_1.2.', body: "Action: Onboarding LMRO sur Subset 1.2.\nStatut: SUCCÈS.", image: './img/lmro-onboarding.png' },
+            'm1': { title: 'REPORT_LOG_ALPHA', body: "Summary: Lorem ipsum dolor sit amet.\nObjective: Consectetur adipiscing elit.\nStatus: COMPLETED" },
+            'm2': { title: 'REPORT_LOG_BETA', body: "Summary: Sed do eiusmod tempor incididunt.\nObjective: Ut labore et dolore magna aliqua.\nStatus: COMPLETED." },
+            'm3': { title: 'REPORT_LOG_GAMMA', body: "Summary: Ut enim ad minim veniam.\nObjective: Quis nostrud exercitation ullamco.\nStatus: COMPLETED." },
+            'm4': { title: 'REPORT_LOG_DELTA', body: "Summary: Duis aute irure dolor in reprehenderit.\nStatus: COMPLETED." },
         };
 
         function showMission(id) {
             const data = missionData[id];
             document.querySelectorAll('.mission-item').forEach(el => el.classList.remove('active'));
-            if(event) event.currentTarget.classList.add('active');
+            if(event && event.currentTarget) event.currentTarget.classList.add('active');
             document.getElementById('mission-display').innerHTML = `
                 <div class="report-header"><div class="report-title">${data.title}</div></div>
                 <div class="report-body">${data.body}</div>
-                <img src="${data.image}" style="width:40%; margin-top:20px; border:1px solid var(--cyan);">
+                <div style="width:200px; height:120px; margin-top:20px;" class="img-placeholder">REPORT_ATTACHMENT</div>
             `;
         }
 
-        // --- SMS DATA ---
+        // --- SMS ---
         const smsData = {
-            'obj1': { n: 'CHIEF_LEAD', m: 'Rollout MFA/RBA \n Cibles: OMES / OMPT / LMRO.' },
-            'obj2': { n: 'CHIEF_LEAD', m: 'Onboarding Subset 1.2. \n Cibles: BMPL / TMIT.' },
-            'obj3': { n: 'CHIEF_LEAD', m: 'INVOICEO :\n Adaptation du front-end de création de compte \n Cibles: LMFR / TMFR.' },
-            'obj4': { n: 'CHIEF_LEAD', m: 'CNIL :\n- Téléphone facultatif\n- Consentements démarchage\n Cible: LMFR' },
-            'obj5': { n: 'CHIEF_LEAD', m: "Framing :\n Simplification authentification \n Cibles: HMBU" }
+            'obj1': { n: 'ROOT_01', m: 'Lorem ipsum dolor sit amet \n Status: Active.' },
+            'obj2': { n: 'ROOT_02', m: 'Consectetur adipiscing elit \n Status: Pending.' },
+            'obj3': { n: 'ROOT_03', m: 'Sed do eiusmod tempor \n Status: Active.' },
+            'obj4': { n: 'ROOT_04', m: 'Ut labore et dolore \n Status: Active.' },
+            'obj5': { n: 'ROOT_05', m: "Magna aliqua ut enim \n Status: Planning." }
         };
+        
         function openSms(id) {
             document.getElementById('conv-name').innerText = smsData[id].n;
-            document.getElementById('conv-messages').innerHTML = `<div class="bubble received">${smsData[id].m}</div><div class="bubble sent">Bien reçu.</div>`;
-            document.getElementById('phone-conv').classList.remove('hidden');
+            document.getElementById('conv-messages').innerHTML = `<div class="bubble received">${smsData[id].m}</div><div class="bubble sent">Acknowledged.</div>`;
+            
+            // Masquer l'accueil du téléphone
+            document.getElementById('phone-home').classList.add('hidden');
+            
+            // Afficher et dimensionner la conversation
+            const phoneConv = document.getElementById('phone-conv');
+            phoneConv.classList.remove('hidden');
+            phoneConv.style.height = '100%';
+            phoneConv.style.display = 'flex';
+            phoneConv.style.flexDirection = 'column';
+            document.getElementById('conv-messages').style.flex = '1';
         }
-        function closeSms() { document.getElementById('phone-conv').classList.add('hidden'); }
+        
+        function closeSms() { 
+            // Masquer la conversation et réafficher l'accueil du téléphone
+            document.getElementById('phone-conv').classList.add('hidden'); 
+            document.getElementById('phone-home').classList.remove('hidden');
+        }
 
         window.onload = () => setTimeout(type, 800);
     </script>
